@@ -32,8 +32,8 @@
             <router-link class="link" :to="{ name: 'home' }">
               Home
             </router-link>
-            <router-link class="link" to="#">
-              Blogs
+            <router-link class="link" :to="{ name: 'blog' }">
+              Blog
             </router-link>
             <router-link v-if="admin" class="link" to="#">
               New Post

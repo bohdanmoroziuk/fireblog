@@ -6,8 +6,8 @@
       </div>
       <div class="nav-links">
         <ul v-show="!mobile">
-          <router-link class="link" to="#">Home</router-link>
-          <router-link class="link" to="#">Blog</router-link>
+          <router-link class="link" :to="{ name: 'home' }">Home</router-link>
+          <router-link class="link" :to="{ name: 'blog' }">Blog</router-link>
           <router-link class="link" to="#">New Post</router-link>
           <router-link class="link" to="#">Login/Register</router-link>
         </ul>
@@ -23,8 +23,8 @@
     />
     <transition name="mobile-nav">
       <ul class="mobile-nav" v-show="mobileNav">
-        <router-link class="link" to="#">Home</router-link>
-        <router-link class="link" to="#">Blog</router-link>
+        <router-link class="link" :to="{ name: 'home' }">Home</router-link>
+        <router-link class="link" :to="{ name: 'blog' }">Blog</router-link>
         <router-link class="link" to="#">New Post</router-link>
         <router-link class="link" to="#">Login/Register</router-link>
       </ul>
