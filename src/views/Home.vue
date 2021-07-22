@@ -11,6 +11,20 @@
         </div>
       </div>
     </div>
+
+    <div class="updates">
+      <div class="container">
+        <h2>Never miss a post. Register for your free account today!</h2>
+        <router-link class="router-button" to="#">
+          Register for FireBlog
+          <img
+            class="arrow"
+            src="@/assets/images/icons/arrow-right-light.svg"
+            alt=""
+          />
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -104,6 +118,7 @@ export default {
       display: flex;
       font-size: 14px;
       text-decoration: none;
+
       @media (min-width: 800px) {
         margin-left: auto;
       }
