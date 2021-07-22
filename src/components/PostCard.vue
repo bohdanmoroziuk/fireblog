@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <div class="icons">
+    <div class="icons" v-if="isEditMode">
       <div class="icon">
         <img
           class="edit"
@@ -39,8 +39,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+const store = {
+  computed: {
+    ...mapState('blog', [
+      'isEditMode',
+    ]),
+  },
+};
+
 export default {
   name: 'PostCard',
+  mixins: [store],
   props: {
     post: {
       type: Object,
