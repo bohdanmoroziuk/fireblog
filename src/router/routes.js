@@ -15,4 +15,28 @@ export default [
     },
     component: () => import('@/views/Blog.vue'),
   },
+  {
+    path: '/login',
+    name: 'login',
+    meta: {
+      title: 'Login',
+    },
+    component: () => import('@/views/Login.vue'),
+  },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {
+      title: 'Register',
+    },
+    component: () => import('@/views/Register.vue'),
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    meta: {
+      title: 'Forgot Password',
+    },
+    component: () => import('@/views/ForgotPassword.vue'),
+  },
 ];
