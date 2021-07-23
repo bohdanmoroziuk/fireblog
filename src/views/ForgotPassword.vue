@@ -1,5 +1,13 @@
 <template>
   <div class="reset-password">
+    <modal
+      v-if="isModalOpen"
+      :message="message"
+      @close="closeModal"
+    />
+
+    <loader v-if="isLoading" />
+
     <div class="form-wrap">
       <form class="reset" @submit.prevent="resetPassword">
         <p class="login-register">
@@ -27,20 +35,33 @@
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue';
+import Loader from '@/components/Loader.vue';
+
 export default {
   name: 'ForgotPassword',
   data() {
     return {
       email: '',
+      message: '',
+      isModalOpen: false,
+      isLoading: false,
     };
   },
   methods: {
     resetPassword() {},
+    closeModal() {
+      this.isModalOpen = false;
+    },
+  },
+  components: {
+    Modal,
+    Loader,
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .reset-password {
   position: relative;
 
