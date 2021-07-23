@@ -38,7 +38,7 @@
             <router-link v-if="admin" class="link" to="#">
               New Post
             </router-link>
-            <router-link v-if="!user" class="link" to="#">
+            <router-link v-if="!user" class="link" :to="{ name: 'login' }">
               Login In/Register
             </router-link>
           </ul>
