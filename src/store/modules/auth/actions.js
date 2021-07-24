@@ -21,4 +21,13 @@ export default {
       username,
     });
   },
+  signIn: async (
+    _context,
+    {
+      email,
+      password,
+    },
+  ) => {
+    await auth.signInWithEmailAndPassword(email, password);
+  },
 };

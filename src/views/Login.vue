@@ -41,6 +41,10 @@
             alt=""
           />
         </div>
+
+        <div class="error" v-if="hasError">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <router-link
@@ -60,16 +64,46 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
+const store = {
+  methods: {
+    ...mapActions('auth', [
+      'signIn',
+    ]),
+  },
+};
+
 export default {
   name: 'Login',
+  mixins: [store],
   data() {
     return {
       email: '',
       password: '',
+      hasError: false,
+      errorMessage: '',
     };
   },
   methods: {
-    submit() {},
+    async submit() {
+      try {
+        this.hasError = false;
+        this.errorMessage = '';
+
+        await this.signIn({
+          email: this.email,
+          password: this.password,
+        });
+
+        this.$router
+          .push({ name: 'home' })
+          .catch(() => {});
+      } catch (error) {
+        this.hasError = true;
+        this.errorMessage = error.message;
+      }
+    },
   },
 };
 </script>
