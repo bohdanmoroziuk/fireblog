@@ -6,14 +6,22 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 
+import { auth } from '@/firebase';
+
 import '@/assets/styles/main.scss';
 
-const app = createApp(App);
+let app = null;
 
-app
-  .use(store)
-  .use(router)
-  .use(Vue3Editor);
+auth.onAuthStateChanged(() => {
+  if (app) return;
 
-app
-  .mount('#app');
+  app = createApp(App);
+
+  app
+    .use(store)
+    .use(router)
+    .use(Vue3Editor);
+
+  app
+    .mount('#app');
+});
