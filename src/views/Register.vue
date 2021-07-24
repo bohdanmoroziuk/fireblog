@@ -77,6 +77,10 @@
             alt=""
           />
         </div>
+
+        <div class="error" v-if="hasError">
+          {{ errorMessage }}
+        </div>
       </div>
 
       <button type="submit">Sign Up</button>
@@ -89,8 +93,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
+const store = {
+  methods: {
+    ...mapActions('auth', [
+      'register',
+    ]),
+  },
+};
+
 export default {
   name: 'Register',
+  mixins: [store],
   data() {
     return {
       firstName: '',
@@ -98,7 +113,44 @@ export default {
       username: '',
       email: '',
       password: '',
+      hasError: false,
+      errorMessage: '',
     };
+  },
+  computed: {
+    isValid() {
+      return ['firstName', 'lastName', 'username', 'email', 'password']
+        .map((key) => this[key])
+        .every((value) => value);
+    },
+  },
+  methods: {
+    async submit() {
+      if (this.isValid) {
+        try {
+          this.hasError = false;
+          this.errorMessage = '';
+
+          await this.register({
+            email: this.email,
+            password: this.password,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            username: this.username,
+          });
+
+          this.$router
+            .push({ name: 'home' })
+            .catch(() => {});
+        } catch (error) {
+          this.hasError = true;
+          this.errorMessage = error.message;
+        }
+      }
+
+      this.hasError = true;
+      this.errorMessage = 'Please fill out all the fields';
+    },
   },
 };
 </script>
