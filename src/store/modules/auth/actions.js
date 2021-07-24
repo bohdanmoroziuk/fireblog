@@ -1,4 +1,4 @@
-import { auth, database } from '@/firebase';
+import { auth, database } from '../../../firebase';
 
 export default {
   register: async (
@@ -37,5 +37,18 @@ export default {
     },
   ) => {
     await auth.sendPasswordResetEmail(email);
+  },
+  getCurrentUser: async ({ commit }) => {
+    const currentUserRef = database.users.doc(auth.currentUser.uid);
+    const currentUserDocument = await currentUserRef.get();
+
+    commit('setCurrentUser', currentUserDocument);
+  },
+  watchAuthStateChange: ({ dispatch }) => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch('getCurrentUser');
+      }
+    });
   },
 };

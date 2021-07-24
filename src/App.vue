@@ -9,11 +9,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import Navbar from '@/components/Navbar.vue';
 import AppFooter from '@/components/Footer.vue';
 
+const store = {
+  methods: {
+    ...mapActions('auth', [
+      'watchAuthStateChange',
+    ]),
+  },
+};
+
 export default {
   name: 'App',
+  mixins: [store],
   data() {
     return {
       authRouteNames: ['login', 'register', 'forgot-password'],
@@ -26,6 +37,9 @@ export default {
     shouldShowNavbar() {
       return this.authRouteNames.includes(this.currentRouteName) === false;
     },
+  },
+  created() {
+    this.watchAuthStateChange();
   },
   components: {
     Navbar,
