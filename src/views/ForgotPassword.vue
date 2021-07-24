@@ -9,7 +9,7 @@
     <loader v-if="isLoading" />
 
     <div class="form-wrap">
-      <form class="reset" @submit.prevent="resetPassword">
+      <form class="reset" @submit.prevent="submit">
         <p class="login-register">
           Back to
           <router-link class="router-link" :to="{ name: 'login' }">Log In</router-link>
@@ -35,11 +35,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import Modal from '@/components/Modal.vue';
 import Loader from '@/components/Loader.vue';
 
+const store = {
+  methods: {
+    ...mapActions('auth', [
+      'resetPassword',
+    ]),
+  },
+};
+
 export default {
   name: 'ForgotPassword',
+  mixins: [store],
   data() {
     return {
       email: '',
@@ -49,9 +60,24 @@ export default {
     };
   },
   methods: {
-    resetPassword() {},
+    async submit() {
+      try {
+        this.isLoading = true;
+
+        await this.resetPassword({ email: this.email });
+
+        this.message = 'If your account exists, you will receive an email';
+        this.isModalOpen = true;
+      } catch (error) {
+        this.message = error.message;
+        this.isModalOpen = true;
+      } finally {
+        this.isLoading = false;
+      }
+    },
     closeModal() {
       this.isModalOpen = false;
+      this.email = '';
     },
   },
   components: {

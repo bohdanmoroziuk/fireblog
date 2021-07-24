@@ -1,4 +1,4 @@
-import { auth, database } from '../../../firebase';
+import { auth, database } from '@/firebase';
 
 export default {
   register: async (
@@ -29,5 +29,13 @@ export default {
     },
   ) => {
     await auth.signInWithEmailAndPassword(email, password);
+  },
+  resetPassword: async (
+    _context,
+    {
+      email,
+    },
+  ) => {
+    await auth.sendPasswordResetEmail(email);
   },
 };
