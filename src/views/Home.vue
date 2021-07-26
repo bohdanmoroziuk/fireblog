@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <post :post="welcomeScreen" />
+    <post :post="welcomeScreen" v-if="isGuest" />
     <post v-for="post of samplePosts" :key="post.id" :post="post" />
 
     <div class="blog-card-wrapper">
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="updates">
+    <div class="updates" v-if="isGuest">
       <div class="container">
         <h2>Never miss a post. Register for your free account today!</h2>
         <router-link class="router-button" to="#">
@@ -29,11 +29,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Post from '@/components/Post.vue';
 import PostCard from '@/components/PostCard.vue';
 
+const store = {
+  computed: {
+    ...mapGetters('auth', [
+      'isGuest',
+    ]),
+  },
+};
+
 export default {
   name: 'Home',
+  mixins: [store],
   data() {
     return {
       welcomeScreen: {

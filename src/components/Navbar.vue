@@ -9,12 +9,48 @@
           <router-link class="link" :to="{ name: 'home' }">Home</router-link>
           <router-link class="link" :to="{ name: 'blog' }">Blog</router-link>
           <router-link class="link" to="#">New Post</router-link>
-          <router-link class="link" :to="{ name: 'login' }">Login/Register</router-link>
+          <router-link
+            class="link"
+            :to="{ name: 'login' }"
+            v-if="isGuest"
+          >
+            Login/Register
+          </router-link>
         </ul>
+
+        <div class="profile" v-if="isLoggedIn" ref="profileMenu" @click="toggleProfileMenu">
+          <span>{{ initials }}</span>
+
+          <div class="profile-menu" v-show="profileMenu">
+            <div class="info">
+              <p class="initials">{{ initials }}</p>
+
+              <div class="right">
+                <p>{{ fullName }}</p>
+                <p>{{ currentUser.username }}</p>
+                <p>{{ currentUser.email }}</p>
+              </div>
+            </div>
+
+            <div class="options">
+              <router-link class="option" to="#">
+                <img class="icon" src="@/assets/images/icons/user-alt-light.svg" alt="">
+                <p>Profile</p>
+              </router-link>
+              <router-link class="option" to="#">
+                <img class="icon" src="@/assets/images/icons/user-crown-light.svg" alt="">
+                <p>Admin</p>
+              </router-link>
+              <div class="option" @click="signOut">
+                <img class="icon" src="@/assets/images/icons/sign-out-alt-regular.svg" alt="">
+                <p>Sign Out</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
 
-    <!-- <MenuIcon /> -->
     <img
       v-show="mobile"
       class="menu-icon"
@@ -33,13 +69,36 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex';
+
+const store = {
+  computed: {
+    ...mapState('auth', [
+      'currentUser',
+    ]),
+    ...mapGetters('auth', [
+      'initials',
+      'fullName',
+      'isLoggedIn',
+      'isGuest',
+    ]),
+  },
+  methods: {
+    ...mapActions('auth', [
+      'signOut',
+    ]),
+  },
+};
+
 export default {
   name: 'Navbar',
+  mixins: [store],
   data() {
     return {
       mobile: null,
       mobileNav: null,
       windowWidth: null,
+      profileMenu: null,
     };
   },
   methods: {
@@ -53,6 +112,11 @@ export default {
     },
     toggleMobileNav() {
       this.mobileNav = !this.mobileNav;
+    },
+    toggleProfileMenu(event) {
+      if (event.target === this.$refs.profileMenu) {
+        this.profileMenu = !this.profileMenu;
+      }
     },
   },
   created() {
@@ -136,7 +200,7 @@ header {
           position: absolute;
           top: 60px;
           right: 0;
-          width: 250px;
+          /* width: 320px; */
           background-color: #303030;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -149,6 +213,7 @@ header {
             .initials {
               position: initial;
               width: 40px;
+              min-width: 40px;
               height: 40px;
               background-color: #fff;
               color: #303030;

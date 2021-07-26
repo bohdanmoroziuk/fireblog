@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-wrapper no-user">
+  <div :class="['blog-wrapper', { 'no-user': isGuest }]">
     <div class="blog-content">
       <div>
         <h2 v-if="post.welcomeScreen">
@@ -56,9 +56,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+const store = {
+  computed: {
+    ...mapGetters('auth', [
+      'isGuest',
+    ]),
+  },
+};
 
 export default {
   name: 'Post',
+  mixins: [store],
   props: {
     post: {
       type: Object,

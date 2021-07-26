@@ -1,6 +1,10 @@
 import { auth, database } from '../../../firebase';
 
 export default {
+  signOut: async () => {
+    await auth.signOut();
+    window.location.reload();
+  },
   register: async (
     _context,
     {

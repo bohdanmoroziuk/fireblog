@@ -38,7 +38,7 @@
             <router-link v-if="admin" class="link" to="#">
               New Post
             </router-link>
-            <router-link v-if="!user" class="link" :to="{ name: 'login' }">
+            <router-link v-if="isGuest" class="link" :to="{ name: 'login' }">
               Login In/Register
             </router-link>
           </ul>
@@ -52,8 +52,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+const store = {
+  computed: {
+    ...mapGetters('auth', [
+      'isGuest',
+    ]),
+  },
+};
+
 export default {
   name: 'Footer',
+  mixins: [store],
   computed: {
     user() {
       return null;
