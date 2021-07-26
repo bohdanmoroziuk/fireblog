@@ -1,6 +1,16 @@
 import { auth, database } from '../../../firebase';
 
 export default {
+  updateProfile: async ({ state: { currentUser } }, payload) => {
+    const userRef = database.users.doc(currentUser.id);
+
+    const changes = Object.fromEntries(
+      Object.entries(currentUser)
+        .filter(([key, value]) => value !== payload[key]),
+    );
+
+    await userRef.update(changes);
+  },
   signOut: async () => {
     await auth.signOut();
     window.location.reload();

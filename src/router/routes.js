@@ -39,4 +39,12 @@ export default [
     },
     component: () => import('@/views/ForgotPassword.vue'),
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    meta: {
+      title: 'Profile',
+    },
+    component: () => import('@/views/Profile.vue'),
+  },
 ];
