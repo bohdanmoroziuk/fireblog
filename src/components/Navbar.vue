@@ -8,7 +8,13 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{ name: 'home' }">Home</router-link>
           <router-link class="link" :to="{ name: 'blog' }">Blog</router-link>
-          <router-link class="link" to="#">New Post</router-link>
+          <router-link
+            class="link"
+            :to="{ name: 'new-post' }"
+            v-if="isLoggedIn"
+          >
+            New Post
+          </router-link>
           <router-link
             class="link"
             :to="{ name: 'login' }"
@@ -37,10 +43,6 @@
                 <img class="icon" src="@/assets/images/icons/user-alt-light.svg" alt="">
                 <p>Profile</p>
               </router-link>
-              <router-link class="option" to="#">
-                <img class="icon" src="@/assets/images/icons/user-crown-light.svg" alt="">
-                <p>Admin</p>
-              </router-link>
               <div class="option" @click="signOut">
                 <img class="icon" src="@/assets/images/icons/sign-out-alt-regular.svg" alt="">
                 <p>Sign Out</p>
@@ -61,8 +63,20 @@
       <ul class="mobile-nav" v-show="mobileNav">
         <router-link class="link" :to="{ name: 'home' }">Home</router-link>
         <router-link class="link" :to="{ name: 'blog' }">Blog</router-link>
-        <router-link class="link" to="#">New Post</router-link>
-        <router-link class="link" :to="{ name: 'login' }">Login/Register</router-link>
+        <router-link
+          class="link"
+          :to="{ name: 'new-post' }"
+          v-if="isLoggedIn"
+        >
+          New Post
+        </router-link>
+        <router-link
+          class="link"
+          :to="{ name: 'login' }"
+          v-if="isGuest"
+        >
+          Login/Register
+        </router-link>
       </ul>
     </transition>
   </header>

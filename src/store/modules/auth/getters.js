@@ -15,4 +15,7 @@ export default {
       .map((x) => x.toUpperCase())
       .join('')
   ),
+  userId: (state) => (
+    state.currentUser.id
+  ),
 };

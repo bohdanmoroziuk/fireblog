@@ -20,6 +20,7 @@ export const getTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export const database = {
   users: firestore.collection('users'),
+  posts: firestore.collection('posts'),
 };
 
 export default app;

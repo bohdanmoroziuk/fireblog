@@ -47,4 +47,12 @@ export default [
     },
     component: () => import('@/views/Profile.vue'),
   },
+  {
+    path: '/new-post',
+    name: 'new-post',
+    meta: {
+      title: 'New Post',
+    },
+    component: () => import('@/views/NewPost.vue'),
+  },
 ];

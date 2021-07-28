@@ -35,7 +35,7 @@
             <router-link class="link" :to="{ name: 'blog' }">
               Blog
             </router-link>
-            <router-link v-if="admin" class="link" to="#">
+            <router-link v-if="isLoggedIn" class="link" :to="{ name: 'new-post' }">
               New Post
             </router-link>
             <router-link v-if="isGuest" class="link" :to="{ name: 'login' }">
@@ -58,6 +58,7 @@ const store = {
   computed: {
     ...mapGetters('auth', [
       'isGuest',
+      'isLoggedIn',
     ]),
   },
 };

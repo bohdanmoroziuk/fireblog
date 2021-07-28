@@ -1,6 +1,4 @@
-import { createApp } from 'vue';
-
-import Vue3Editor from 'vue3-editor';
+import Vue from 'vue';
 
 import App from '@/App.vue';
 import router from '@/router';
@@ -15,13 +13,9 @@ let app = null;
 auth.onAuthStateChanged(() => {
   if (app) return;
 
-  app = createApp(App);
-
-  app
-    .use(store)
-    .use(router)
-    .use(Vue3Editor);
-
-  app
-    .mount('#app');
+  app = new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount('#app');
 });
