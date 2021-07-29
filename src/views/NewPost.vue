@@ -51,7 +51,7 @@
       </div>
 
       <div class="blog-actions">
-        <button>Publish Post</button>
+        <button @click="publishPost">Publish Post</button>
         <button @click="viewPost">Post Preview</button>
       </div>
     </div>
@@ -73,6 +73,8 @@ const ImageResize = require('quill-image-resize-module').default;
 Quill.register('modules/imageResize', ImageResize);
 
 import CoverPhotoPreview from '@/components/CoverPhotoPreview.vue';
+
+import { storage, database } from '../firebase';
 
 const store = {
   computed: {
@@ -117,6 +119,9 @@ export default {
         content: this.content,
       };
     },
+    isPostValid() {
+      return this.title && this.content;
+    },
   },
   methods: {
     handleCoverPhotoChange() {
@@ -132,9 +137,48 @@ export default {
         },
       });
     },
+    displayError(message) {
+      this.hasError = true;
+      this.errorMessage = message;
+
+      setTimeout(() => {
+        this.hasError = false;
+        this.errorMessage = '';
+      }, 2500);
+    },
     viewPost() {
       this.addPost(this.post);
       this.$router.push({ name: 'post-preview' }).catch(() => {});
+    },
+    publishPost() {
+      if (this.isPostValid) {
+        if (this.coverPhoto) {
+          const storageRef = storage.ref();
+          const documentRef = storageRef.child(`documents/postCoverPhotos/${this.coverPhoto.name}`);
+
+          documentRef.put(this.coverPhoto).on('state_changed',
+            () => {},
+            () => {},
+            async () => {
+              const downloadUrl = await documentRef.getDownloadURL();
+              const document = database.posts.doc();
+
+              await document.set({
+                id: document.id,
+                title: this.title,
+                content: this.content,
+                coverPhoto: downloadUrl,
+                coverPhotoName: this.coverPhotoName,
+                userId: this.userId,
+                date: Date.now(),
+              });
+            });
+        }
+
+        this.displayError('Please ensure you uploaded a cover photo');
+      }
+
+      this.displayError('Please ensure title and content has been filled!');
     },
     openModal() {
       this.isModalOpen = true;
