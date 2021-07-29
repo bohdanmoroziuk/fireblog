@@ -52,9 +52,7 @@
 
       <div class="blog-actions">
         <button>Publish Post</button>
-        <router-link class="router-button" to="#">
-          Post Preview
-        </router-link>
+        <button @click="viewPost">Post Preview</button>
       </div>
     </div>
   </div>
@@ -63,8 +61,9 @@
 <script>
 /* eslint-disable import/first */
 /* eslint-disable import/order */
+/* eslint-disable no-shadow */
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 import { VueEditor as Editor, Quill } from 'vue2-editor';
 
@@ -78,6 +77,10 @@ import CoverPhotoPreview from '@/components/CoverPhotoPreview.vue';
 const store = {
   computed: {
     ...mapGetters('auth', ['userId']),
+  },
+  methods: {
+    ...mapMutations('blog', ['addPost']),
+    ...mapActions('blog', ['uploadImage']),
   },
 };
 
@@ -107,13 +110,32 @@ export default {
     coverPhotoUrl() {
       return this.coverPhoto ? URL.createObjectURL(this.coverPhoto) : null;
     },
+    post() {
+      return {
+        title: this.title,
+        coverPhoto: this.coverPhoto,
+        content: this.content,
+      };
+    },
   },
   methods: {
     handleCoverPhotoChange() {
       const [file] = this.$refs.coverPhotoInput.files;
       this.coverPhoto = file;
     },
-    handleImageAdd() {},
+    handleImageAdd(file, Editor, cursorLocation, resetUploader) {
+      this.uploadImage({
+        image: file,
+        onComplete: (imageUrl) => {
+          Editor.insertEmbed(cursorLocation, 'image', imageUrl);
+          resetUploader();
+        },
+      });
+    },
+    viewPost() {
+      this.addPost(this.post);
+      this.$router.push({ name: 'post-preview' }).catch(() => {});
+    },
     openModal() {
       this.isModalOpen = true;
     },

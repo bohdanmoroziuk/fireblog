@@ -5,4 +5,7 @@ export default {
   toggleEditMode: (state) => {
     state.isEditMode = !state.isEditMode;
   },
+  addPost: (state, post) => {
+    state.post = post;
+  },
 };

@@ -55,4 +55,12 @@ export default [
     },
     component: () => import('@/views/NewPost.vue'),
   },
+  {
+    path: '/post-preview',
+    name: 'post-preview',
+    meta: {
+      title: 'Preview Post',
+    },
+    component: () => import('@/views/PostPreview.vue'),
+  },
 ];
