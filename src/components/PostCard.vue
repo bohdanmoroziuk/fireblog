@@ -19,13 +19,13 @@
 
     <img
       class="cover-photo"
-      :src="require(`@/assets/images/cards/${post.coverPhoto}`)"
+      :src="post.coverPhoto"
       alt=""
     />
 
     <div class="info">
       <h4>{{ post.title }}</h4>
-      <h6>Posted on: {{ post.date }}</h6>
+      <h6>Posted on: {{ post.date | formatDate }}</h6>
       <router-link class="link" to="#">
         View The Post
         <img
@@ -56,6 +56,11 @@ export default {
     post: {
       type: Object,
       required: true,
+    },
+  },
+  filters: {
+    formatDate(value) {
+      return new Date(value).toLocaleString();
     },
   },
 };

@@ -120,7 +120,7 @@ export default {
       };
     },
     isPostValid() {
-      return this.title && this.content;
+      return this.title.length > 0 && this.content.length > 0;
     },
   },
   methods: {
@@ -173,12 +173,12 @@ export default {
                 date: Date.now(),
               });
             });
+        } else {
+          this.displayError('Please ensure you uploaded a cover photo');
         }
-
-        this.displayError('Please ensure you uploaded a cover photo');
+      } else {
+        this.displayError('Please ensure title and content has been filled!');
       }
-
-      this.displayError('Please ensure title and content has been filled!');
     },
     openModal() {
       this.isModalOpen = true;

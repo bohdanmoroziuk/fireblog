@@ -1,4 +1,4 @@
-import { storage } from '../../../firebase';
+import { storage, database } from '../../../firebase';
 
 export default {
   uploadImage: (_context, { image, onComplete }) => {
@@ -16,5 +16,24 @@ export default {
 
           onComplete(downloadUrl);
         });
+  },
+  getPosts: async ({ commit }) => {
+    try {
+      commit('getPostsRequest');
+
+      const documents = await database.posts
+        .orderBy('date', 'asc')
+        .get();
+
+      const posts = [];
+
+      documents.forEach((document) => {
+        posts.push(document.data());
+      });
+
+      commit('getPostsSuccess', posts);
+    } catch (error) {
+      commit('getPostsFailure', error);
+    }
   },
 };

@@ -28,6 +28,7 @@ import PostCard from '@/components/PostCard.vue';
 const store = {
   computed: {
     ...mapState('blog', [
+      'posts',
       'isEditMode',
     ]),
   },
@@ -49,34 +50,6 @@ export default {
       set(value) {
         this.setEditMode(value);
       },
-    },
-    posts() {
-      return [
-        {
-          id: '1',
-          title: 'Card #1',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-1.jpg',
-        },
-        {
-          id: '2',
-          title: 'Card #2',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-2.jpg',
-        },
-        {
-          id: '3',
-          title: 'Card #3',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-3.jpg',
-        },
-        {
-          id: '4',
-          title: 'Card #4',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-4.jpg',
-        },
-      ];
     },
   },
   beforeUnmount() {

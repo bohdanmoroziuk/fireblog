@@ -19,6 +19,9 @@ const store = {
     ...mapActions('auth', [
       'watchAuthStateChange',
     ]),
+    ...mapActions('blog', [
+      'getPosts',
+    ]),
   },
 };
 
@@ -38,8 +41,9 @@ export default {
       return this.authRouteNames.includes(this.currentRouteName) === false;
     },
   },
-  created() {
+  async created() {
     this.watchAuthStateChange();
+    await this.getPosts();
   },
   components: {
     Navbar,

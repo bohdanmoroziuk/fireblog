@@ -1,13 +1,13 @@
 <template>
   <div class="home">
     <post :post="welcomeScreen" v-if="isGuest" />
-    <post v-for="post of samplePosts" :key="post.id" :post="post" />
+    <post v-for="post of feed" :key="post.id" :post="post" />
 
     <div class="blog-card-wrapper">
       <div class="container">
         <h3>View More Recent Posts</h3>
         <div class="blog-cards">
-          <post-card v-for="post of sampleCards" :key="post.id" :post="post" />
+          <post-card v-for="post of cards" :key="post.id" :post="post" />
         </div>
       </div>
     </div>
@@ -39,6 +39,10 @@ const store = {
     ...mapGetters('auth', [
       'isGuest',
     ]),
+    ...mapGetters('blog', [
+      'feed',
+      'cards',
+    ]),
   },
 };
 
@@ -53,46 +57,6 @@ export default {
         welcomeScreen: true,
         photo: 'coding.jpg',
       },
-      samplePosts: [
-        {
-          id: '1',
-          title: 'This is a Filler Title',
-          content: 'This is a filler post title!',
-          coverPhoto: 'beautiful-stories.jpg',
-        },
-        {
-          id: '2',
-          title: 'This is a Filler Title',
-          content: 'This is a filler post title!',
-          coverPhoto: 'designed-for-everyone.jpg',
-        },
-      ],
-      sampleCards: [
-        {
-          id: '1',
-          title: 'Card #1',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-1.jpg',
-        },
-        {
-          id: '2',
-          title: 'Card #2',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-2.jpg',
-        },
-        {
-          id: '3',
-          title: 'Card #3',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-3.jpg',
-        },
-        {
-          id: '4',
-          title: 'Card #4',
-          date: 'May 1, 2021',
-          coverPhoto: 'stock-4.jpg',
-        },
-      ],
     };
   },
   components: {
