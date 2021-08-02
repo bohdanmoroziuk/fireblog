@@ -6,6 +6,8 @@
       @close="closeModal"
     />
 
+    <loader v-if="isLoading" />
+
     <div class="container">
       <div class="error-message" :class="{ invisible: !hasError }">
         <p>
@@ -73,8 +75,9 @@ const ImageResize = require('quill-image-resize-module').default;
 Quill.register('modules/imageResize', ImageResize);
 
 import CoverPhotoPreview from '@/components/CoverPhotoPreview.vue';
+import Loader from '@/components/Loader.vue';
 
-import { storage, database } from '../firebase';
+import { storage, database } from '@/firebase';
 
 const store = {
   computed: {
@@ -82,7 +85,7 @@ const store = {
   },
   methods: {
     ...mapMutations('blog', ['addPost']),
-    ...mapActions('blog', ['uploadImage']),
+    ...mapActions('blog', ['uploadImage', 'getPosts']),
   },
 };
 
@@ -103,6 +106,7 @@ export default {
         },
       },
       isModalOpen: false,
+      isLoading: false,
     };
   },
   computed: {
@@ -163,6 +167,8 @@ export default {
               const downloadUrl = await documentRef.getDownloadURL();
               const document = database.posts.doc();
 
+              this.isLoading = true;
+
               await document.set({
                 id: document.id,
                 title: this.title,
@@ -172,6 +178,11 @@ export default {
                 userId: this.userId,
                 date: Date.now(),
               });
+
+              await this.getPosts();
+
+              this.isLoading = false;
+              this.$router.push({ name: 'blog' }).catch(() => {});
             });
         } else {
           this.displayError('Please ensure you uploaded a cover photo');
@@ -189,6 +200,7 @@ export default {
   },
   components: {
     Editor,
+    Loader,
     CoverPhotoPreview,
   },
 };
