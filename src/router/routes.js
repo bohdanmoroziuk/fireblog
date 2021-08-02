@@ -63,4 +63,13 @@ export default [
     },
     component: () => import('@/views/PostPreview.vue'),
   },
+  {
+    path: '/post/:id',
+    name: 'post',
+    props: true,
+    meta: {
+      title: 'Post',
+    },
+    component: () => import('@/views/Post.vue'),
+  },
 ];

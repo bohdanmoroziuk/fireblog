@@ -25,7 +25,7 @@
         <router-link
           v-else
           class="link"
-          to="#"
+          :to="{ name: 'post', params: { id: post.id } }"
         >
           View the post
           <img

@@ -5,4 +5,7 @@ export default {
   cards: (state) => (
     state.posts.slice(2, 6)
   ),
+  getPostById: (state) => (id) => (
+    state.posts.find((post) => post.id === id)
+  ),
 };

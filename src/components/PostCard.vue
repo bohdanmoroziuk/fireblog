@@ -26,7 +26,10 @@
     <div class="info">
       <h4>{{ post.title }}</h4>
       <h6>Posted on: {{ post.date | formatDate }}</h6>
-      <router-link class="link" to="#">
+      <router-link
+        class="link"
+        :to="{ name: 'post', params: { id: post.id } }"
+      >
         View The Post
         <img
           class="arrow"
