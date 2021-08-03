@@ -1,40 +1,25 @@
-import { auth, database } from '../../../firebase';
+/* eslint-disable import/no-named-as-default-member */
+
+import AuthService from '@/services/auth';
 
 export default {
   updateProfile: async ({ state: { currentUser } }, payload) => {
-    const userRef = database.users.doc(currentUser.id);
+    const changes = {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      username: payload.username,
+    };
 
-    const changes = Object.fromEntries(
-      Object.entries(currentUser)
-        .filter(([key, value]) => value !== payload[key]),
-    );
-
-    await userRef.update(changes);
+    await AuthService.updateProfile(currentUser.id, changes);
   },
   signOut: async () => {
-    await auth.signOut();
+    await AuthService.signOut();
+
     localStorage.setItem('fireblog/isLoggedIn', false);
     window.location.reload();
   },
-  register: async (
-    _context,
-    {
-      email,
-      password,
-      firstName,
-      lastName,
-      username,
-    },
-  ) => {
-    const response = await auth.createUserWithEmailAndPassword(email, password);
-    const userRef = database.users.doc(response.user.uid);
-
-    await userRef.set({
-      email,
-      firstName,
-      lastName,
-      username,
-    });
+  register: async (_context, payload) => {
+    await AuthService.register(payload);
   },
   signIn: async (
     _context,
@@ -43,7 +28,7 @@ export default {
       password,
     },
   ) => {
-    await auth.signInWithEmailAndPassword(email, password);
+    await AuthService.signIn(email, password);
     localStorage.setItem('fireblog/isLoggedIn', true);
   },
   resetPassword: async (
@@ -52,16 +37,15 @@ export default {
       email,
     },
   ) => {
-    await auth.sendPasswordResetEmail(email);
+    await AuthService.resetPassword(email);
   },
   getCurrentUser: async ({ commit }) => {
-    const currentUserRef = database.users.doc(auth.currentUser.uid);
-    const currentUserDocument = await currentUserRef.get();
+    const currentUserDocument = await AuthService.getCurrentUser();
 
     commit('setCurrentUser', currentUserDocument);
   },
   watchAuthStateChange: ({ dispatch }) => {
-    auth.onAuthStateChanged((user) => {
+    AuthService.addStateChangeListener((user) => {
       if (user) {
         dispatch('getCurrentUser');
       }
