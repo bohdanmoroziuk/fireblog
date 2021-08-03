@@ -8,7 +8,10 @@
           alt=""
         />
       </div>
-      <div class="icon">
+      <div
+        class="icon"
+        @click="handlePostDelete"
+      >
         <img
           class="delete"
           src="@/assets/images/icons/trash-regular.svg"
@@ -42,12 +45,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
+
+import { mapState, mapActions } from 'vuex';
 
 const store = {
   computed: {
     ...mapState('blog', [
       'isEditMode',
+    ]),
+  },
+  methods: {
+    ...mapActions('blog', [
+      'deletePost',
     ]),
   },
 };
@@ -59,6 +70,17 @@ export default {
     post: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    async handlePostDelete() {
+      try {
+        if (confirm('Are you sure you want to delete the post?')) {
+          await this.deletePost(this.post.id);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
     },
   },
   filters: {

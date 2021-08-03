@@ -36,4 +36,11 @@ export default {
       commit('getPostsFailure', error);
     }
   },
+  deletePost: async ({ commit }, id) => {
+    await database.posts
+      .doc(id)
+      .delete();
+
+    commit('deletePost', id);
+  },
 };

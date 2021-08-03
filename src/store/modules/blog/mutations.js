@@ -20,4 +20,7 @@ export default {
     state.isLoading = false;
     state.posts = [];
   },
+  deletePost: (state, id) => {
+    state.posts = state.posts.filter((post) => post.id !== id);
+  },
 };
