@@ -1,35 +1,20 @@
-import { storage, database } from '../../../firebase';
+/* eslint-disable import/no-named-as-default-member */
+
+import PostsService from '@/services/posts';
 
 export default {
   uploadImage: (_context, { image, onComplete }) => {
-    const documentRef = storage
-      .ref()
-      .child(`documents/postPhotos/${image.name}`);
-
-    documentRef
-      .put(image)
-      .on('state_changed',
-        () => {},
-        () => {},
-        async () => {
-          const downloadUrl = await documentRef.getDownloadURL();
-
-          onComplete(downloadUrl);
-        });
+    PostsService.uploadImage({
+      image,
+      onComplete,
+      path: `documents/postPhotos/${image.name}`,
+    });
   },
   getPosts: async ({ commit }) => {
     try {
       commit('getPostsRequest');
 
-      const documents = await database.posts
-        .orderBy('date', 'asc')
-        .get();
-
-      const posts = [];
-
-      documents.forEach((document) => {
-        posts.push(document.data());
-      });
+      const posts = await PostsService.getPosts();
 
       commit('getPostsSuccess', posts);
     } catch (error) {
@@ -37,9 +22,7 @@ export default {
     }
   },
   deletePost: async ({ commit }, id) => {
-    await database.posts
-      .doc(id)
-      .delete();
+    await PostsService.deletePost(id);
 
     commit('deletePost', id);
   },
