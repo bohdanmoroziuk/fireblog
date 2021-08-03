@@ -13,6 +13,7 @@ export default {
   },
   signOut: async () => {
     await auth.signOut();
+    localStorage.setItem('fireblog/isLoggedIn', false);
     window.location.reload();
   },
   register: async (
@@ -43,6 +44,7 @@ export default {
     },
   ) => {
     await auth.signInWithEmailAndPassword(email, password);
+    localStorage.setItem('fireblog/isLoggedIn', true);
   },
   resetPassword: async (
     _context,

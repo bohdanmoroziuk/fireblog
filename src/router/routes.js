@@ -20,6 +20,7 @@ export default [
     name: 'login',
     meta: {
       title: 'Login',
+      onlyWhenLoggedOut: true,
     },
     component: () => import('@/views/Login.vue'),
   },
@@ -28,6 +29,7 @@ export default [
     name: 'register',
     meta: {
       title: 'Register',
+      onlyWhenLoggedOut: true,
     },
     component: () => import('@/views/Register.vue'),
   },
@@ -36,6 +38,7 @@ export default [
     name: 'forgot-password',
     meta: {
       title: 'Forgot Password',
+      onlyWhenLoggedOut: true,
     },
     component: () => import('@/views/ForgotPassword.vue'),
   },
@@ -44,6 +47,7 @@ export default [
     name: 'profile',
     meta: {
       title: 'Profile',
+      isPrivate: true,
     },
     component: () => import('@/views/Profile.vue'),
   },
@@ -52,6 +56,7 @@ export default [
     name: 'new-post',
     meta: {
       title: 'New Post',
+      isPrivate: true,
     },
     component: () => import('@/views/NewPost.vue'),
   },
@@ -60,6 +65,7 @@ export default [
     name: 'post-preview',
     meta: {
       title: 'Preview Post',
+      isPrivate: true,
     },
     component: () => import('@/views/PostPreview.vue'),
   },

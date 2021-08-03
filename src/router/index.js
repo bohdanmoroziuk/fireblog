@@ -23,7 +23,24 @@ const getDocumentTitle = (appName, pageTitle) => {
 router.beforeEach((to, _from, next) => {
   document.title = getDocumentTitle('FireBlog', to.meta.title);
 
-  next();
+  const isLoggedIn = JSON.parse(localStorage.getItem('fireblog/isLoggedIn'));
+  const isPrivatePage = to.matched.some((record) => record.meta?.isPrivate);
+  const onlyWhenLoggedOut = to.matched.some((record) => record.meta?.onlyWhenLoggedOut);
+
+  if (isPrivatePage && !isLoggedIn) {
+    return next({
+      name: 'login',
+      query: {
+        redirect: to.fullPath,
+      },
+    });
+  }
+
+  if (isLoggedIn && onlyWhenLoggedOut) {
+    return next({ name: 'home' });
+  }
+
+  return next();
 });
 
 export default router;
