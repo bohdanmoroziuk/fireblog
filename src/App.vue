@@ -1,18 +1,15 @@
 <template>
   <div class="app-wrapper">
-    <div class="app">
-      <navbar v-if="shouldShowNavbar" />
+    <layout>
       <router-view />
-      <app-footer />
-    </div>
+    </layout>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
-import Navbar from '@/components/Navbar.vue';
-import AppFooter from '@/components/Footer.vue';
+import Layout from '@/layouts/Layout.vue';
 
 const store = {
   methods: {
@@ -28,26 +25,12 @@ const store = {
 export default {
   name: 'App',
   mixins: [store],
-  data() {
-    return {
-      authRouteNames: ['login', 'register', 'forgot-password'],
-    };
-  },
-  computed: {
-    currentRouteName() {
-      return this.$route.name;
-    },
-    shouldShowNavbar() {
-      return this.authRouteNames.includes(this.currentRouteName) === false;
-    },
-  },
   async created() {
     this.watchAuthStateChange();
     await this.getPosts();
   },
   components: {
-    Navbar,
-    AppFooter,
+    Layout,
   },
 };
 </script>

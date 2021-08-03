@@ -21,6 +21,7 @@ export default [
     meta: {
       title: 'Login',
       onlyWhenLoggedOut: true,
+      layout: 'auth',
     },
     component: () => import('@/views/Login.vue'),
   },
@@ -30,6 +31,7 @@ export default [
     meta: {
       title: 'Register',
       onlyWhenLoggedOut: true,
+      layout: 'auth',
     },
     component: () => import('@/views/Register.vue'),
   },
@@ -39,6 +41,7 @@ export default [
     meta: {
       title: 'Forgot Password',
       onlyWhenLoggedOut: true,
+      layout: 'auth',
     },
     component: () => import('@/views/ForgotPassword.vue'),
   },
