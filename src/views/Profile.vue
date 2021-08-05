@@ -13,7 +13,7 @@
         <div class="initials">{{ initials }}</div>
 
         <div class="admin-badge">
-          <img class="icon" src="@/assets/images/icons/user-crown-light.svg" alt="">
+          <admin-icon class="icon" />
           <span>admin</span>
         </div>
 
@@ -43,6 +43,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 
 import Modal from '@/components/Modal.vue';
+import AdminIcon from '@/assets/images/icons/user-crown-light.svg';
 
 const store = {
   computed: {
@@ -101,6 +102,7 @@ export default {
   },
   components: {
     Modal,
+    AdminIcon,
   },
 };
 </script>

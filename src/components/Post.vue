@@ -16,11 +16,7 @@
           to="#"
         >
           Login/Register
-          <img
-            class="arrow arrow-light"
-            src="@/assets/images/icons/arrow-right-light.svg"
-            alt=""
-          />
+          <arrow-right-icon class="arrow arrow-light" />
         </router-link>
         <router-link
           v-else
@@ -28,11 +24,7 @@
           :to="{ name: 'post', params: { id: post.id } }"
         >
           View the post
-          <img
-            class="arrow"
-            src="@/assets/images/icons/arrow-right-light.svg"
-            alt=""
-          />
+          <arrow-right-icon class="arrow" />
         </router-link>
       </div>
     </div>
@@ -54,6 +46,8 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import ArrowRightIcon from '@/assets/images/icons/arrow-right-light.svg';
+
 const store = {
   computed: {
     ...mapGetters('auth', [
@@ -70,6 +64,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    ArrowRightIcon,
   },
 };
 </script>

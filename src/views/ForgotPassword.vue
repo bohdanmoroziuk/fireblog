@@ -20,7 +20,7 @@
         <div class="inputs">
           <div class="input">
             <input type="text" placeholder="Email" v-model="email" />
-            <img src="@/assets/images/icons/envelope-regular.svg" alt="" class="icon">
+            <email-icon class="icon" />
           </div>
         </div>
 
@@ -36,6 +36,8 @@
 
 <script>
 import { mapActions } from 'vuex';
+
+import EmailIcon from '@/assets/images/icons/envelope-regular.svg';
 
 import Modal from '@/components/Modal.vue';
 import Loader from '@/components/Loader.vue';
@@ -83,6 +85,7 @@ export default {
   components: {
     Modal,
     Loader,
+    EmailIcon,
   },
 };
 </script>

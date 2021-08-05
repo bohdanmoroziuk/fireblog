@@ -23,11 +23,7 @@
             placeholder="First name"
             v-model.trim="firstName"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/user-alt-light.svg"
-            alt=""
-          />
+          <user-icon class="icon" />
         </div>
         <div class="input">
           <input
@@ -35,11 +31,7 @@
             placeholder="Last name"
             v-model.trim="lastName"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/user-alt-light.svg"
-            alt=""
-          />
+          <user-icon class="icon" />
         </div>
         <div class="input">
           <input
@@ -47,11 +39,7 @@
             placeholder="Username"
             v-model.trim="username"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/user-alt-light.svg"
-            alt=""
-          />
+          <user-icon class="icon" />
         </div>
         <div class="input">
           <input
@@ -59,11 +47,7 @@
             placeholder="Email"
             v-model.trim="email"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/envelope-regular.svg"
-            alt=""
-          />
+          <email-icon class="icon" />
         </div>
         <div class="input">
           <input
@@ -71,11 +55,7 @@
             placeholder="Password"
             v-model.trim="password"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/lock-alt-solid.svg"
-            alt=""
-          />
+          <password-icon class="icon" />
         </div>
 
         <div class="error" v-if="hasError">
@@ -94,6 +74,10 @@
 
 <script>
 import { mapActions } from 'vuex';
+
+import UserIcon from '@/assets/images/icons/user-alt-light.svg';
+import EmailIcon from '@/assets/images/icons/envelope-regular.svg';
+import PasswordIcon from '@/assets/images/icons/lock-alt-solid.svg';
 
 const store = {
   methods: {
@@ -151,6 +135,11 @@ export default {
       this.hasError = true;
       this.errorMessage = 'Please fill out all the fields';
     },
+  },
+  components: {
+    UserIcon,
+    EmailIcon,
+    PasswordIcon,
   },
 };
 </script>

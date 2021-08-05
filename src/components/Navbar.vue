@@ -40,11 +40,11 @@
 
             <div class="options">
               <router-link class="option" :to="{ name: 'profile' }">
-                <img class="icon" src="@/assets/images/icons/user-alt-light.svg" alt="">
+                <user-icon class="icon" />
                 <p>Profile</p>
               </router-link>
               <div class="option" @click="signOut">
-                <img class="icon" src="@/assets/images/icons/sign-out-alt-regular.svg" alt="">
+                <sign-out-icon class="icon" />
                 <p>Sign Out</p>
               </div>
             </div>
@@ -53,10 +53,9 @@
       </div>
     </nav>
 
-    <img
+    <menu-icon
       v-show="mobile"
       class="menu-icon"
-      src="@/assets/images/icons/bars-regular.svg"
       @click="toggleMobileNav"
     />
     <transition name="mobile-nav">
@@ -84,6 +83,10 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
+
+import MenuIcon from '@/assets/images/icons/bars-regular.svg';
+import UserIcon from '@/assets/images/icons/user-alt-light.svg';
+import SignOutIcon from '@/assets/images/icons/sign-out-alt-regular.svg';
 
 const store = {
   computed: {
@@ -138,6 +141,11 @@ export default {
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.checkScreen);
+  },
+  components: {
+    MenuIcon,
+    UserIcon,
+    SignOutIcon,
   },
 };
 </script>

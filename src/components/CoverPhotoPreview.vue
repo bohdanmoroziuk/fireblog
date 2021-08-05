@@ -1,17 +1,15 @@
 <template>
   <div class="modal" ref="modal">
     <div class="modal-content">
-      <img
-        class="icon"
-        src="@/assets/images/icons/times-circle-light.svg"
-        @click="closeModal"
-      />
+      <close-icon class="icon" @click="closeModal" />
       <img :src="coverPhotoUrl" alt="" />
     </div>
   </div>
 </template>
 
 <script>
+import CloseIcon from '@/assets/images/icons/times-circle-light.svg';
+
 export default {
   name: 'CoverPhotoPreview',
   props: {
@@ -24,6 +22,9 @@ export default {
     closeModal() {
       this.$emit('close');
     },
+  },
+  components: {
+    CloseIcon,
   },
 };
 </script>

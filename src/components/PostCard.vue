@@ -2,21 +2,13 @@
   <div class="blog-card">
     <div class="icons" v-if="isEditMode">
       <div class="icon">
-        <img
-          class="edit"
-          src="@/assets/images/icons/edit-regular.svg"
-          alt=""
-        />
+        <edit-icon class="edit" />
       </div>
       <div
         class="icon"
         @click="handlePostDelete"
       >
-        <img
-          class="delete"
-          src="@/assets/images/icons/trash-regular.svg"
-          alt=""
-        />
+        <delete-icon class="delete" />
       </div>
     </div>
 
@@ -34,11 +26,7 @@
         :to="{ name: 'post', params: { id: post.id } }"
       >
         View The Post
-        <img
-          class="arrow"
-          src="@/assets/images/icons/arrow-right-light.svg"
-          alt=""
-        />
+        <arrow-right-icon class="arrow" />
       </router-link>
     </div>
   </div>
@@ -49,6 +37,10 @@
 /* eslint-disable no-alert */
 
 import { mapState, mapActions } from 'vuex';
+
+import EditIcon from '@/assets/images/icons/edit-regular.svg';
+import DeleteIcon from '@/assets/images/icons/trash-regular.svg';
+import ArrowRightIcon from '@/assets/images/icons/arrow-right-light.svg';
 
 const store = {
   computed: {
@@ -87,6 +79,11 @@ export default {
     formatDate(value) {
       return new Date(value).toLocaleString();
     },
+  },
+  components: {
+    EditIcon,
+    DeleteIcon,
+    ArrowRightIcon,
   },
 };
 </script>

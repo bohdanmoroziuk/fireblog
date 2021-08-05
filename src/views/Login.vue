@@ -23,11 +23,7 @@
             placeholder="Email"
             v-model.trim="email"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/envelope-regular.svg"
-            alt=""
-          />
+          <email-icon class="icon" />
         </div>
         <div class="input">
           <input
@@ -35,11 +31,7 @@
             placeholder="Password"
             v-model.trim="password"
           />
-          <img
-            class="icon"
-            src="@/assets/images/icons/lock-alt-solid.svg"
-            alt=""
-          />
+          <password-icon class="icon" />
         </div>
 
         <div class="error" v-if="hasError">
@@ -65,6 +57,9 @@
 
 <script>
 import { mapActions } from 'vuex';
+
+import EmailIcon from '@/assets/images/icons/envelope-regular.svg';
+import PasswordIcon from '@/assets/images/icons/lock-alt-solid.svg';
 
 const store = {
   methods: {
@@ -104,6 +99,10 @@ export default {
         this.errorMessage = error.message;
       }
     },
+  },
+  components: {
+    EmailIcon,
+    PasswordIcon,
   },
 };
 </script>

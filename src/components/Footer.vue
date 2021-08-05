@@ -7,22 +7,22 @@
           <ul>
             <li>
               <a href="#">
-                <img class="svg-icon" src="@/assets/images/icons/youtube-brands.svg" alt="">
+                <youtube-icon class="svg-icon" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img class="svg-icon" src="@/assets/images/icons/twitter-brands.svg" alt="">
+                <twitter-icon class="svg-icon" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img class="svg-icon" src="@/assets/images/icons/twitter-brands.svg" alt="">
+                <linkedin-icon class="svg-icon" />
               </a>
             </li>
             <li>
               <a href="#">
-                <img class="svg-icon" src="@/assets/images/icons/linkedin-brands.svg" alt="">
+                <instagram-icon class="svg-icon" />
               </a>
             </li>
           </ul>
@@ -54,6 +54,11 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import YoutubeIcon from '@/assets/images/icons/youtube-brands.svg';
+import TwitterIcon from '@/assets/images/icons/twitter-brands.svg';
+import LinkedinIcon from '@/assets/images/icons/linkedin-brands.svg';
+import InstagramIcon from '@/assets/images/icons/instagram-brands.svg';
+
 const store = {
   computed: {
     ...mapGetters('auth', [
@@ -73,6 +78,12 @@ export default {
     admin() {
       return null;
     },
+  },
+  components: {
+    YoutubeIcon,
+    TwitterIcon,
+    LinkedinIcon,
+    InstagramIcon,
   },
 };
 </script>

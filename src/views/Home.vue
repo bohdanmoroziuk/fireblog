@@ -17,11 +17,7 @@
         <h2>Never miss a post. Register for your free account today!</h2>
         <router-link class="router-button" to="#">
           Register for FireBlog
-          <img
-            class="arrow"
-            src="@/assets/images/icons/arrow-right-light.svg"
-            alt=""
-          />
+          <arrow-right-icon class="arrow" />
         </router-link>
       </div>
     </div>
@@ -30,6 +26,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
+import ArrowRightIcon from '@/assets/images/icons/arrow-right-light.svg';
 
 import Post from '@/components/Post.vue';
 import PostCard from '@/components/PostCard.vue';
@@ -62,6 +60,7 @@ export default {
   components: {
     Post,
     PostCard,
+    ArrowRightIcon,
   },
 };
 </script>
