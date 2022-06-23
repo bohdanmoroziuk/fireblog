@@ -1,4 +1,6 @@
-# fireblog
+# Fireblog
+
+> Blog app created with Vue.js 2 and Firebase.
 
 ## Project setup
 ```
@@ -24,6 +26,3 @@ npm run test:unit
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
